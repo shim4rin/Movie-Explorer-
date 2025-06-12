@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-film"></i>
+                    Movie Explorer
+                </h1>
+                <p class="subtitle">Unlimited movies, TV shows, and more</p>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input 
+                            type="text" 
+                            id="movieSearch" 
+                            placeholder="Search for movies, TV shows..." 
+                            autocomplete="off"
+                        >
+                        <button id="searchBtn" class="search-btn">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest Releases Section -->
+            <div class="latest-releases-section" id="latestReleasesSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-star"></i> Trending Now</h2>
+                    <p class="section-subtitle">Discover the most popular movies right now</p>
+                </div>
+                <div class="carousel-container">
+                    <button class="carousel-arrow carousel-arrow-left" id="latestPrevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="movie-carousel" id="latestMoviesCarousel">
+                        <!-- Latest movies will be populated here -->
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" id="latestNextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Genre Recommendations Section -->
+            <div class="genre-recommendations-section" id="genreRecommendationsSection">
+                <!-- Genre-based recommendations will be populated here -->
+            </div>
+
+            <div class="results-section">
+                <div id="loadingSpinner" class="loading-spinner hidden">
+                    <div class="spinner"></div>
+                    <p>Finding your content...</p>
+                </div>
+
+                <div id="errorMessage" class="error-message hidden">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Sorry, we couldn't find that title. Try searching for something else.</p>
+                </div>
+
+                <div id="movieDetails" class="movie-details hidden">
+                    <!-- Movie details will be populated here -->
+                </div>
+
+                <div id="initialMessage" class="initial-message">
+                    <div class="welcome-content">
+                        <i class="fas fa-play-circle welcome-icon"></i>
+                        <h2>Discover Your Next Favorite</h2>
+                        <p>Search our vast library to find detailed information about any movie or TV show. Get ratings, cast details, plot summaries, and more!</p>
+                        <div class="sample-searches">
+                            <p>Popular searches:</p>
+                            <div class="sample-buttons">
+                                <button class="sample-btn" data-search="Breaking Bad">Breaking Bad</button>
+                                <button class="sample-btn" data-search="The Godfather">The Godfather</button>
+                                <button class="sample-btn" data-search="Stranger Things">Stranger Things</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
