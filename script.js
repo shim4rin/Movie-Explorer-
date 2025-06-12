@@ -1,6 +1,6 @@
 // OMDB API Configuration
 const API_KEY = '1b913320';
-const BASE_URL = 'http://www.omdbapi.com/';
+const BASE_URL = 'https://www.omdbapi.com/';
 
 // DOM Elements
 const movieSearch = document.getElementById('movieSearch');
@@ -460,15 +460,37 @@ async function searchMovie(title) {
     }
 }
 
-async function fetchMovieData(title) {
+async function fetchMovieData(title, retries = 3) {
     const url = `${BASE_URL}?t=${encodeURIComponent(title)}&apikey=${API_KEY}&plot=full`;
-    const response = await fetch(url);
     
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
+    for (let i = 0; i < retries; i++) {
+        try {
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            // Check if API returned an error
+            if (data.Response === 'False' && data.Error === 'Request limit reached!') {
+                throw new Error('API rate limit reached. Please try again later.');
+            }
+            
+            return data;
+        } catch (error) {
+            console.error(`Attempt ${i + 1} failed for ${title}:`, error);
+            
+            // If this is the last retry, throw the error
+            if (i === retries - 1) {
+                throw error;
+            }
+            
+            // Wait before retrying (exponential backoff)
+            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+        }
     }
-    
-    return await response.json();
 }
 
 function displayMovieDetails(movie) {
